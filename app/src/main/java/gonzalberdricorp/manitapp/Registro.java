@@ -1,6 +1,7 @@
 package gonzalberdricorp.manitapp;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,12 +12,15 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import JavaBean.DatosPersona;
 import modelo.GestionComunicacion;
 
 public class Registro extends AppCompatActivity {
     DatosPersona dt;
     Spinner sp;
+    String DNI;
     String[] Categorias= {"Electricista","Fontanero","Carpintero","Pintor","Mudanzas","Limpieza Domestica","Cerrajero","Técnico","Informñatico","Reformas"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,16 +36,14 @@ public class Registro extends AppCompatActivity {
 
     //-------------------------------------COMPROBAR DNI REPETIDO Y DISPARAR RESPUESTA--
     public void comprobarDNI (View v){
+
         EditText edt1 = (EditText) this.findViewById(R.id.proDni);
-        GestionComunicacion gCom=new GestionComunicacion();
-        dt=gCom.enviarDNI(edt1.getText().toString());
-        if (dt.getNombre()==null){
-            LinearLayout ADNI=(LinearLayout)this.findViewById((R.id.alertaDNI));
-            ADNI.setVisibility(View.VISIBLE);
-        }else{
-            LinearLayout LinearRegistro=(LinearLayout)this.findViewById(R.id.LinearRegistro);
-            LinearRegistro.setVisibility(View.VISIBLE);
-        }
+
+        DNI=(edt1.getText().toString());
+        ComunicacionDNI com=new ComunicacionDNI();
+        com.execute();
+
+
     }
     //-----------------------------------------------------------------------------------
 
@@ -61,6 +63,9 @@ public class Registro extends AppCompatActivity {
         proTlf.setText(dt.getTelefono().toString());
         proMail.setText(dt.getMail().toString());
 
+        LinearLayout ADNI=(LinearLayout)this.findViewById((R.id.alertaDNI));
+        ADNI.setVisibility(View.INVISIBLE);
+
     }
     //----------------------------------------------------------------------------------
 
@@ -79,14 +84,46 @@ public class Registro extends AppCompatActivity {
         dt.setDNI(edt1.getText().toString());
         dt.setNombre(proNombre.getText().toString());
         dt.setDireccion(proDirec.getText().toString());
-
-
+        dt.setTelefono(proTlf.getText().toString());
+        dt.setMail(proMail.getText().toString());
+        LinearLayout LinearRegistro=(LinearLayout)this.findViewById(R.id.LinearRegistro);
+        LinearRegistro.setVisibility(View.INVISIBLE);
 
     }
 
     //-----------------------------------RETORNO A MAIN---------------------------------
     public void noact (View v){
+        LinearLayout ADNI=(LinearLayout)this.findViewById((R.id.alertaDNI));
+        ADNI.setVisibility(View.INVISIBLE);
         this.startActivity(new Intent(this,ManitApp.class));
     }
-    //---------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------
+
+    //------------------------------------TAREA ASINCRONA DE COMUNICACIONES-------------
+
+    class ComunicacionDNI extends AsyncTask<Void,Void,DatosPersona> {
+        @Override
+        protected void onPostExecute(DatosPersona dt) {
+            System.out.println(dt.toString());
+            if (dt.getNombre().equals("none")){
+                LinearLayout LinearRegistro=(LinearLayout)Registro.this.findViewById(R.id.LinearRegistro);
+                LinearRegistro.setVisibility(View.VISIBLE);
+            }else{
+                LinearLayout ADNI=(LinearLayout)Registro.this.findViewById((R.id.alertaDNI));
+                ADNI.setVisibility(View.VISIBLE);
+            }
+
+        }
+
+        @Override
+        protected DatosPersona doInBackground(Void... params) {
+            //nos conectamos con el servidor para pedirle la lista de personas
+            GestionComunicacion gcom=new GestionComunicacion();
+            dt=gcom.enviarDNI(DNI);
+            return dt;
+        }
+    }
+    //----------------------------------------------------------------------------------
+
+
 }

@@ -18,16 +18,26 @@ import JavaBean.DatosPersona;
  */
 
 public class GestionComunicacion {
-    DatosPersona dt;
+
     boolean registro=false;
     public DatosPersona enviarDNI(String DNI){
+        DatosPersona dt=new DatosPersona("fallo",
+                "fallo",
+                "fallo",
+                "fallo",
+                "fallo",
+                "fallo",
+                0,
+                0,
+                0,
+                "fallo");
         try {
             //creamos objeto JSON con el DNI
             //cuyos datos queremos comprobar
             JSONObject job = new JSONObject();
             job.put("Dni", DNI);
             job.put("registro",registro);
-            Socket sc=new Socket("192.168.0.187",8000);
+            Socket sc=new Socket("192.168.0.188",8000);
             PrintStream salida=new PrintStream(sc.getOutputStream());
             BufferedReader bf=new BufferedReader(new InputStreamReader(sc.getInputStream()));
             //enviamos objeto al servidor
@@ -36,16 +46,32 @@ public class GestionComunicacion {
             //recuperamos objeto con respuesta
             //---------------------------------CONSTRUIMOS OBJETO JB--------------------------
             JSONObject jobRespuesta=new JSONObject(bf.readLine());
-            dt=new DatosPersona(jobRespuesta.getString("Categoria"),
-                    jobRespuesta.getString("Dni"),
-                    jobRespuesta.getString("Nombre"),
-                    jobRespuesta.getString("Direccion"),
-                    jobRespuesta.getString("Telefono"),
-                    jobRespuesta.getString("Mail"),
-                    jobRespuesta.getInt("Estrellas"),
-                    jobRespuesta.getDouble("X"),
-                    jobRespuesta.getDouble("Y"),
-                    jobRespuesta.getString("Extra"));
+
+            if (jobRespuesta.getString("Nombre").equals("none")){
+                dt=new DatosPersona("none",
+                        "none",
+                        "none",
+                        "none",
+                        "none",
+                        "none",
+                        0,
+                        0,
+                        0,
+                        "none");
+            }else{
+                dt=new DatosPersona(jobRespuesta.getString("Categoria"),
+                        jobRespuesta.getString("Dni"),
+                        jobRespuesta.getString("Nombre"),
+                        jobRespuesta.getString("Direccion"),
+                        jobRespuesta.getString("Telefono"),
+                        jobRespuesta.getString("Mail"),
+                        jobRespuesta.getInt("Estrellas"),
+                        jobRespuesta.getDouble("X"),
+                        jobRespuesta.getDouble("Y"),
+                        jobRespuesta.getString("Extra"));
+            }
+
+
             //-------------------------------------------------------------------------------
             //cierre del socket
             sc.close();
