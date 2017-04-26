@@ -19,13 +19,14 @@ import JavaBean.DatosPersona;
 
 public class GestionComunicacion {
     DatosPersona dt;
-
+    boolean registro=false;
     public DatosPersona enviarDNI(String DNI){
         try {
-            //creamos objeto JSON con el nombre de la persona
-            //cuyos datos queremos recuperar
+            //creamos objeto JSON con el DNI
+            //cuyos datos queremos comprobar
             JSONObject job = new JSONObject();
             job.put("Dni", DNI);
+            job.put("registro",registro);
             Socket sc=new Socket("192.168.0.187",8000);
             PrintStream salida=new PrintStream(sc.getOutputStream());
             BufferedReader bf=new BufferedReader(new InputStreamReader(sc.getInputStream()));
