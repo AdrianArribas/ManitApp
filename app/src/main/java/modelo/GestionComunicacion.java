@@ -1,5 +1,7 @@
 package modelo;
 
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,23 +33,24 @@ public class GestionComunicacion {
                 0,
                 0,
                 "fallo");
+
         try {
             //creamos objeto JSON con el DNI
             //cuyos datos queremos comprobar
-            JSONObject job = new JSONObject();
-            job.put("Dni", DNI);
-            job.put("registro",registro);
+            JSONObject jobRespuesta = new JSONObject();
+            jobRespuesta.put("Dni", DNI);
+            jobRespuesta.put("registro",registro);
             Socket sc=new Socket("192.168.0.188",8000);
             PrintStream salida=new PrintStream(sc.getOutputStream());
             BufferedReader bf=new BufferedReader(new InputStreamReader(sc.getInputStream()));
             //enviamos objeto al servidor
-            salida.println(job.toString());
+            salida.println(jobRespuesta.toString());
 
             //recuperamos objeto con respuesta
             //---------------------------------CONSTRUIMOS OBJETO JB--------------------------
-            JSONObject jobRespuesta=new JSONObject(bf.readLine());
-
-            if (jobRespuesta.getString("Nombre").equals("none")){
+            JSONObject jobRespuesta2=new JSONObject(bf.readLine());
+            String nombreJOB=((String)jobRespuesta2.get("Nombre"));
+            if (nombreJOB.equals("none")){
                 dt=new DatosPersona("none",
                         "none",
                         "none",
@@ -58,17 +61,22 @@ public class GestionComunicacion {
                         0,
                         0,
                         "none");
+
+                System.out.println("LLEGAMOS AL IF 1");
             }else{
-                dt=new DatosPersona(jobRespuesta.getString("Categoria"),
-                        jobRespuesta.getString("Dni"),
-                        jobRespuesta.getString("Nombre"),
-                        jobRespuesta.getString("Direccion"),
-                        jobRespuesta.getString("Telefono"),
-                        jobRespuesta.getString("Mail"),
-                        jobRespuesta.getInt("Estrellas"),
-                        jobRespuesta.getDouble("X"),
-                        jobRespuesta.getDouble("Y"),
-                        jobRespuesta.getString("Extra"));
+                dt=new DatosPersona(
+                    ((String)jobRespuesta2.get("Categoria")),
+                    ((String)jobRespuesta2.get("Dni")),
+                    ((String)jobRespuesta2.get("Nombre")),
+                    ((String)jobRespuesta2.get("Direccion")),
+                    ((String)jobRespuesta2.get("Telefono")),
+                    ((String)jobRespuesta2.get("Email")),
+                    ((Integer)jobRespuesta2.get("Estrellas")).intValue(),
+                    ((Double)jobRespuesta2.get("X")),
+                    ((Double)jobRespuesta2.get("Y")),
+                    ((String)jobRespuesta2.get("Extra")));
+
+                System.out.println("LLEGAMOS AL ELSE 1");
             }
 
 

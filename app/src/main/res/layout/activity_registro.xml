@@ -39,7 +39,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="comprobarDNI"
-                android:text="Comprobar" />
+                android:text="Comprobar"
+                android:visibility="visible" />
         </LinearLayout>
 
         <LinearLayout
@@ -47,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="invisible">
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -98,16 +99,44 @@
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="DIRECCIÓN:" />
+                    android:layout_weight="0.02"
+                    android:text="Calle" />
 
                 <EditText
                     android:id="@+id/proDirec"
-                    android:layout_width="wrap_content"
+                    android:layout_width="105dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.01"
+                    android:text="Nº" />
+
+                <EditText
+                    android:id="@+id/editText"
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.01"
+                    android:text="CP" />
+
+                <EditText
+                    android:id="@+id/editText2"
+                    android:layout_width="28dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:layout_weight="0.01" />
             </LinearLayout>
 
             <LinearLayout

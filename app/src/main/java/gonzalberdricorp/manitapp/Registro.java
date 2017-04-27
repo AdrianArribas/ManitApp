@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -53,6 +54,8 @@ public class Registro extends AppCompatActivity {
 
         LinearLayout LinearRegistro=(LinearLayout)this.findViewById(R.id.LinearRegistro);
         LinearRegistro.setVisibility(View.VISIBLE);
+        Button Botondni=(Button)Registro.this.findViewById(R.id.button3);
+        Botondni.setVisibility(View.INVISIBLE);
 
         EditText proNombre=(EditText)this.findViewById(R.id.proNombre);
         EditText proDirec=(EditText)this.findViewById(R.id.proDirec);
@@ -89,6 +92,8 @@ public class Registro extends AppCompatActivity {
         dt.setMail(proMail.getText().toString());
         LinearLayout LinearRegistro=(LinearLayout)this.findViewById(R.id.LinearRegistro);
         LinearRegistro.setVisibility(View.INVISIBLE);
+        Button Botondni=(Button)Registro.this.findViewById(R.id.button3);
+        Botondni.setVisibility(View.VISIBLE);
 
         ComunicacionRegistro com=new ComunicacionRegistro();
         com.execute();
@@ -113,11 +118,15 @@ public class Registro extends AppCompatActivity {
                 LinearRegistro.setVisibility(View.VISIBLE);
                 LinearLayout ADNI=(LinearLayout)Registro.this.findViewById((R.id.alertaDNI));
                 ADNI.setVisibility(View.INVISIBLE);
+                Button Botondni=(Button)Registro.this.findViewById(R.id.button3);
+                Botondni.setVisibility(View.INVISIBLE);
             }else{
                 LinearLayout LinearRegistro=(LinearLayout)Registro.this.findViewById(R.id.LinearRegistro);
                 LinearRegistro.setVisibility(View.INVISIBLE);
                 LinearLayout ADNI=(LinearLayout)Registro.this.findViewById((R.id.alertaDNI));
                 ADNI.setVisibility(View.VISIBLE);
+                Button Botondni=(Button)Registro.this.findViewById(R.id.button3);
+                Botondni.setVisibility(View.INVISIBLE);
             }
 
         }
@@ -141,6 +150,8 @@ public class Registro extends AppCompatActivity {
             ADNI.setVisibility(View.INVISIBLE);
             LinearLayout LinearRegistro=(LinearLayout)Registro.this.findViewById(R.id.LinearRegistro);
             LinearRegistro.setVisibility(View.INVISIBLE);
+            Button Botondni=(Button)Registro.this.findViewById(R.id.button3);
+            Botondni.setVisibility(View.VISIBLE);
 
             Registro.this.startActivity(new Intent(Registro.this,ManitApp.class));
         }
