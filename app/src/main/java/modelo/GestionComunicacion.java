@@ -84,9 +84,47 @@ public class GestionComunicacion {
         return dt;
 
     }
+    //-------------------------------REGISTRO DE PROFESIONAL------------------------------------
+    public String enviarRegistro(DatosPersona dt){
+        String checkreg="vacio";
+        try {
+            //creamos objeto JSON con el DNI
+            //cuyos datos queremos ENVIAR
+            JSONObject job = new JSONObject();
+            job.put("Categoria",(dt.getCategoria()));
+            job.put("Dni",dt.getDNI());
+            job.put("Nombre",dt.getNombre());
+            job.put("Direccion",dt.getDireccion());
+            job.put("Telefono",dt.getTelefono());
+            job.put("Mail",dt.getMail());
+            job.put("Estrellas",0);
+            job.put("X",0.1);
+            job.put("Y",0.1);
+            job.put("Extra","desconocido");
+            job.put("registro",registro=true);
+            Socket sc=new Socket("192.168.0.188",8000);
+            PrintStream salida=new PrintStream(sc.getOutputStream());
+            BufferedReader bf=new BufferedReader(new InputStreamReader(sc.getInputStream()));
+            //enviamos objeto al servidor
+            salida.println(job.toString());
 
+            //recuperamos objeto con respuesta
+            //---------------------------------LEEMOS RESPUESTA--------------------------
+            checkreg=(bf.readLine());
 
+            //-------------------------------------------------------------------------------
+            //cierre del socket
+            sc.close();
+        }
+        catch(IOException ex){
+            ex.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return checkreg;
 
+    }
+    //-------------------------------------------------------------------------------
 
 
 

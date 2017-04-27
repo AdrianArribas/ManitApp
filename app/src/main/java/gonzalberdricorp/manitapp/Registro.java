@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -80,7 +81,7 @@ public class Registro extends AppCompatActivity {
 
         String Categoria=tv.getText().toString();
 
-        dt.setCategoria(Categoria);
+        dt.setCategoria(Categoria.toLowerCase());
         dt.setDNI(edt1.getText().toString());
         dt.setNombre(proNombre.getText().toString());
         dt.setDireccion(proDirec.getText().toString());
@@ -89,6 +90,8 @@ public class Registro extends AppCompatActivity {
         LinearLayout LinearRegistro=(LinearLayout)this.findViewById(R.id.LinearRegistro);
         LinearRegistro.setVisibility(View.INVISIBLE);
 
+        ComunicacionRegistro com=new ComunicacionRegistro();
+        com.execute();
     }
 
     //-----------------------------------RETORNO A MAIN---------------------------------
@@ -99,7 +102,7 @@ public class Registro extends AppCompatActivity {
     }
     //----------------------------------------------------------------------------------
 
-    //------------------------------------TAREA ASINCRONA DE COMUNICACIONES-------------
+    //------------------------------------TAREAS ASINCRONAS DE COMUNICACIONES-------------
 
     class ComunicacionDNI extends AsyncTask<Void,Void,DatosPersona> {
         @Override
@@ -108,7 +111,11 @@ public class Registro extends AppCompatActivity {
             if (dt.getNombre().equals("none")){
                 LinearLayout LinearRegistro=(LinearLayout)Registro.this.findViewById(R.id.LinearRegistro);
                 LinearRegistro.setVisibility(View.VISIBLE);
+                LinearLayout ADNI=(LinearLayout)Registro.this.findViewById((R.id.alertaDNI));
+                ADNI.setVisibility(View.INVISIBLE);
             }else{
+                LinearLayout LinearRegistro=(LinearLayout)Registro.this.findViewById(R.id.LinearRegistro);
+                LinearRegistro.setVisibility(View.INVISIBLE);
                 LinearLayout ADNI=(LinearLayout)Registro.this.findViewById((R.id.alertaDNI));
                 ADNI.setVisibility(View.VISIBLE);
             }
@@ -124,6 +131,28 @@ public class Registro extends AppCompatActivity {
         }
     }
     //----------------------------------------------------------------------------------
+    class ComunicacionRegistro extends AsyncTask<Void,Void,DatosPersona> {
+        String Respuesta;
+        @Override
+        protected void onPostExecute(DatosPersona dt) {
+            System.out.println(dt.toString());
+            Toast.makeText(Registro.this,Respuesta,Toast.LENGTH_LONG).show();
+            LinearLayout ADNI=(LinearLayout)Registro.this.findViewById((R.id.alertaDNI));
+            ADNI.setVisibility(View.INVISIBLE);
+            LinearLayout LinearRegistro=(LinearLayout)Registro.this.findViewById(R.id.LinearRegistro);
+            LinearRegistro.setVisibility(View.INVISIBLE);
 
+            Registro.this.startActivity(new Intent(Registro.this,ManitApp.class));
+        }
+
+        @Override
+        protected DatosPersona doInBackground(Void... params) {
+            //nos conectamos con el servidor para pedirle la lista de personas
+            GestionComunicacion gcom=new GestionComunicacion();
+            Respuesta=gcom.enviarRegistro(dt);
+            return dt;
+        }
+    }
+    //----------------------------------------------------------------------------------
 
 }
