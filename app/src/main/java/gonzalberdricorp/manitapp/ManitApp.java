@@ -17,6 +17,6 @@ public class ManitApp extends AppCompatActivity {
     }
 
     public void buscar (View v){
-        this.startActivity(new Intent(this,Registro.class));
+        this.startActivity(new Intent(this,ClienteSelecion.class));
     }
 }
