@@ -1,6 +1,8 @@
 package gonzalberdricorp.manitapp;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +16,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import JavaBean.DatosPersona;
 import modelo.GestionComunicacion;
@@ -24,6 +29,7 @@ public class Registro extends AppCompatActivity {
     Spinner sp;
     String DNI;
     String[] Categorias= {"Electricista","Fontanero","Carpintero","Pintor","Mudanzas","Limpieza Domestica","Cerrajero","Técnico","Informñatico","Reformas"};
+    double lat,lon=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,16 +99,18 @@ public class Registro extends AppCompatActivity {
         dt.setDireccion(proDirec.getText().toString()+"|"+proNum.getText().toString()+"|"+proCP.getText().toString());
         dt.setTelefono(proTlf.getText().toString());
         dt.setMail(proMail.getText().toString());
+        //-------------------------------Pasamos la direccion a coordenadas-----------------
+        String calle=(proDirec.getText().toString());
+        String numerocalle=(proNum.getText().toString());
+        String Ciudad=(proCP.getText().toString());
+        coordenadas(calle,numerocalle,Ciudad);
+        dt.setX(lat);
+        dt.setY(lon);
+        //---------------------------------Visivilidad de los botones--------------
         LinearLayout LinearRegistro=(LinearLayout)this.findViewById(R.id.LinearRegistro);
         LinearRegistro.setVisibility(View.INVISIBLE);
         Button Botondni=(Button)Registro.this.findViewById(R.id.button3);
         Botondni.setVisibility(View.VISIBLE);
-        //-------------------------------Pasamos la direccion a coordenadas-----------------
-
-
-
-
-
         //-------------------------------enviamos-------------------------------------------
         ComunicacionRegistro com=new ComunicacionRegistro();
         com.execute();
@@ -174,5 +182,21 @@ public class Registro extends AppCompatActivity {
         }
     }
     //----------------------------------------------------------------------------------
+
+    public void coordenadas(String calle, String numerocalle, String Ciudad) {
+        Geocoder geo = new Geocoder(Registro.this, new Locale("ES"));
+
+        try {
+            List<Address> lista = geo.getFromLocationName(calle + "," + numerocalle + "," + Ciudad, 2);
+            //Toast.makeText(Registro.this,lista.get(0).getLatitude()+","+lista.get(0).getLongitude());
+            lat = (lista.get(0).getLatitude());
+            lon = (lista.get(0).getLongitude());
+            //getfromlocation (lat,long,int max results);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+
+        }
+    }
+
 
 }

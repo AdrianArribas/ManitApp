@@ -1,5 +1,7 @@
 package modelo;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -12,6 +14,8 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import JavaBean.DatosPersona;
 
@@ -106,8 +110,8 @@ public class GestionComunicacion {
             job.put("Telefono",dt.getTelefono());
             job.put("Mail",dt.getMail());
             job.put("Estrellas",0);
-            job.put("X",0.1);
-            job.put("Y",0.1);
+            job.put("X",dt.getX());
+            job.put("Y",dt.getY());
             job.put("Extra","desconocido");
             job.put("registro",registro=true);
             Socket sc=new Socket("192.168.0.188",8000);
@@ -133,6 +137,50 @@ public class GestionComunicacion {
 
     }
     //-------------------------------------------------------------------------------
+
+    public ArrayList<DatosPersona> buscarProfesionales(String busqueda){
+        ArrayList<DatosPersona> Arraydt=new ArrayList<>();
+        try{
+            JSONObject job = new JSONObject(busqueda);
+            //creamos objeto JSON con el DNI
+            //cuyos datos queremos comprobar
+            Socket sc=new Socket("192.168.0.188",9000);
+            PrintStream salida=new PrintStream(sc.getOutputStream());
+            BufferedReader bf=new BufferedReader(new InputStreamReader(sc.getInputStream()));
+            //enviamos objeto al servidor
+            salida.println(job.toString());
+
+            //recuperamos objeto con respuesta
+            //---------------------------------CONSTRUIMOS OBJETO JB--------------------------
+            JSONArray JobArespuesta=new JSONArray(bf.readLine());
+            DatosPersona dt;
+            for(int i=0;i<JobArespuesta.length();i++) {
+                dt=new DatosPersona(
+                        ((String)job.get("Categoria")),
+                        ((String)job.get("Dni")),
+                        ((String)job.get("Nombre")),
+                        ((String)job.get("Direccion")),
+                        ((String)job.get("Telefono")),
+                        ((String)job.get("Email")),
+                        ((Integer)job.get("Estrellas")).intValue(),
+                        ((Double)job.get("X")),
+                        ((Double)job.get("Y")),
+                        ((String)job.get("Extra")));
+                Arraydt.add(dt);
+            }
+            //-------------------------------------------------------------------------------
+            //cierre del socket
+            sc.close();
+        }
+        catch(IOException ex){
+            ex.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return Arraydt;
+
+        }
+    }
 
 
 
@@ -199,4 +247,3 @@ public class GestionComunicacion {
     }
 
     */
-}

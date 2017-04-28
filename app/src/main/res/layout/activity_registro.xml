@@ -128,7 +128,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.01"
-                    android:text="CP" />
+                    android:text="Ciudad" />
 
                 <EditText
                     android:id="@+id/proCP"
@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.01"
                     android:ems="10"
-                    android:inputType="number" />
+                    android:inputType="textPersonName" />
             </LinearLayout>
 
             <LinearLayout
