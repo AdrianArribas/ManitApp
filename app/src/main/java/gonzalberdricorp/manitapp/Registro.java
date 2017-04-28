@@ -74,27 +74,36 @@ public class Registro extends AppCompatActivity {
     //----------------------------------------------------------------------------------
 
     public void ENVIAR (View v){
-
+        //Declaramos los campos de texto y spinners de los que vamos a extraer los datos----
         EditText edt1 = (EditText) this.findViewById(R.id.proDni);
         EditText proNombre=(EditText)this.findViewById(R.id.proNombre);
         EditText proDirec=(EditText)this.findViewById(R.id.proDirec);
         EditText proTlf=(EditText)this.findViewById(R.id.proTlf);
         EditText proMail=(EditText)this.findViewById(R.id.proMail);
         TextView tv=(TextView)this.findViewById(android.R.id.text1);
+        EditText proNum=(EditText)this.findViewById(R.id.proNumero);
+        EditText proCP=(EditText)this.findViewById(R.id.proCP);
 
         String Categoria=tv.getText().toString();
 
+        //-------------------------------Construimos objeto DatosPersona---------------------
         dt.setCategoria(Categoria.toLowerCase());
         dt.setDNI(edt1.getText().toString());
         dt.setNombre(proNombre.getText().toString());
-        dt.setDireccion(proDirec.getText().toString());
+        dt.setDireccion(proDirec.getText().toString()+"|"+proNum.getText().toString()+"|"+proCP.getText().toString());
         dt.setTelefono(proTlf.getText().toString());
         dt.setMail(proMail.getText().toString());
         LinearLayout LinearRegistro=(LinearLayout)this.findViewById(R.id.LinearRegistro);
         LinearRegistro.setVisibility(View.INVISIBLE);
         Button Botondni=(Button)Registro.this.findViewById(R.id.button3);
         Botondni.setVisibility(View.VISIBLE);
+        //-------------------------------Pasamos la direccion a coordenadas-----------------
 
+
+
+
+
+        //-------------------------------enviamos-------------------------------------------
         ComunicacionRegistro com=new ComunicacionRegistro();
         com.execute();
     }
