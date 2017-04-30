@@ -27,9 +27,10 @@ import modelo.GestionComunicacion;
 public class Mapa extends AppCompatActivity {
     String nombre;
     String busqueda;
-    double longitud,latitud;
-
-
+    double longitud=40.397070;
+    double latitud=-3.743800;
+    ArrayList<DatosPersona> Arraydt;
+    GoogleMap googleMap;
 
 
     @Override
@@ -45,10 +46,9 @@ public class Mapa extends AppCompatActivity {
         Intent intent=this.getIntent();
         busqueda=intent.getStringExtra("busqueda");
 
+
         ComunicacionMAPA1 com=new ComunicacionMAPA1();
         com.execute();
-        longitud=40.397070;
-        latitud=-3.743800;
 
         //obtenemos una referencia al fragmento que contiene el mapa
         FragmentManager fm=this.getSupportFragmentManager();
@@ -70,9 +70,20 @@ public class Mapa extends AppCompatActivity {
                 marcador.position(pos);
                 marcador.title(nombre);
                 googleMap.addMarker(marcador);
+                for(int i=0;i<Arraydt.size();i++) {
+                    DatosPersona dat;
+                    dat = (Arraydt.get(i));
+                    LatLng coords=new LatLng(dat.getX(),dat.getY());
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(coords)
+                            .title(dat.getNombre().toString()));
+                }
 
-            }
+                }
+
+
         });
+
     }
 
 
@@ -81,13 +92,12 @@ public class Mapa extends AppCompatActivity {
     class ComunicacionMAPA1 extends AsyncTask<Void,Void,ArrayList<DatosPersona>> {
         @Override
         protected void onPostExecute(ArrayList<DatosPersona> datosPersonas) {
-            super.onPostExecute(datosPersonas);
+
 
         }
 
         @Override
         protected ArrayList<DatosPersona> doInBackground(Void... params) {
-            ArrayList<DatosPersona> Arraydt=new ArrayList<>();
             //nos conectamos con el servidor para pedirle la lista de personas
             GestionComunicacion gcom=new GestionComunicacion();
             Arraydt=gcom.buscarProfesionales(busqueda);

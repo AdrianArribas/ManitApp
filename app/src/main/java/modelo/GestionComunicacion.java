@@ -1,9 +1,5 @@
 package modelo;
 
-import android.location.Address;
-import android.location.Geocoder;
-import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,8 +10,6 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 import JavaBean.DatosPersona;
 
@@ -25,6 +19,9 @@ import JavaBean.DatosPersona;
 
 public class GestionComunicacion {
 
+    String URLconexion="192.168.1.133";//-----------servidor PC clase 192.168.0.188
+    int URLPuertoRegistro =8000;
+    int URLPuertoCliente=9000;
     boolean registro=false;
     public DatosPersona enviarDNI(String DNI){
         DatosPersona dt=new DatosPersona("fallo",
@@ -44,7 +41,7 @@ public class GestionComunicacion {
             JSONObject jobRespuesta = new JSONObject();
             jobRespuesta.put("Dni", DNI);
             jobRespuesta.put("registro",registro);
-            Socket sc=new Socket("192.168.0.188",8000);
+            Socket sc=new Socket(URLconexion, URLPuertoRegistro);
             PrintStream salida=new PrintStream(sc.getOutputStream());
             BufferedReader bf=new BufferedReader(new InputStreamReader(sc.getInputStream()));
             //enviamos objeto al servidor
@@ -114,7 +111,7 @@ public class GestionComunicacion {
             job.put("Y",dt.getY());
             job.put("Extra","desconocido");
             job.put("registro",registro=true);
-            Socket sc=new Socket("192.168.0.188",8000);
+            Socket sc=new Socket(URLconexion, URLPuertoRegistro);
             PrintStream salida=new PrintStream(sc.getOutputStream());
             BufferedReader bf=new BufferedReader(new InputStreamReader(sc.getInputStream()));
             //enviamos objeto al servidor
@@ -144,28 +141,32 @@ public class GestionComunicacion {
             JSONObject job = new JSONObject(busqueda);
             //creamos objeto JSON con el DNI
             //cuyos datos queremos comprobar
-            Socket sc=new Socket("192.168.0.188",9000);
+            Socket sc=new Socket(URLconexion,URLPuertoCliente);
             PrintStream salida=new PrintStream(sc.getOutputStream());
             BufferedReader bf=new BufferedReader(new InputStreamReader(sc.getInputStream()));
             //enviamos objeto al servidor
             salida.println(job.toString());
+            System.out.println(job.toString());
 
             //recuperamos objeto con respuesta
+
             //---------------------------------CONSTRUIMOS OBJETO JB--------------------------
             JSONArray JobArespuesta=new JSONArray(bf.readLine());
             DatosPersona dt;
             for(int i=0;i<JobArespuesta.length();i++) {
+                JSONObject jobres=(JobArespuesta.getJSONObject(i));
+                System.out.println(jobres.toString());
                 dt=new DatosPersona(
-                        ((String)job.get("Categoria")),
-                        ((String)job.get("Dni")),
-                        ((String)job.get("Nombre")),
-                        ((String)job.get("Direccion")),
-                        ((String)job.get("Telefono")),
-                        ((String)job.get("Email")),
-                        ((Integer)job.get("Estrellas")).intValue(),
-                        ((Double)job.get("X")),
-                        ((Double)job.get("Y")),
-                        ((String)job.get("Extra")));
+                        ((String)jobres.get("Categoria")),
+                        (jobres.get("Dni").toString()),
+                        ((String)jobres.get("Nombre")),
+                        ((String)jobres.get("Direccion")),
+                        ((String)jobres.get("Telefono")),
+                        ((String)jobres.get("Email")),
+                        ((Integer)jobres.get("Estrellas")).intValue(),
+                        ((Double)jobres.get("X")),
+                        ((Double)jobres.get("Y")),
+                        ((String)jobres.get("Extra")));
                 Arraydt.add(dt);
             }
             //-------------------------------------------------------------------------------

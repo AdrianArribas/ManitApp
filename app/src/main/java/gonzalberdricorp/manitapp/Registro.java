@@ -65,11 +65,20 @@ public class Registro extends AppCompatActivity {
 
         EditText proNombre=(EditText)this.findViewById(R.id.proNombre);
         EditText proDirec=(EditText)this.findViewById(R.id.proDirec);
+        EditText proNum=(EditText)this.findViewById(R.id.proNumero);
+        EditText proCP=(EditText)this.findViewById(R.id.proCP);
         EditText proTlf=(EditText)this.findViewById(R.id.proTlf);
         EditText proMail=(EditText)this.findViewById(R.id.proMail);
 
+
         proNombre.setText(dt.getNombre().toString());
-        proDirec.setText(dt.getDireccion().toString());
+        String direcBruto=(dt.getDireccion().toString());
+        String direcBrutoAr[]=direcBruto.split("[|]");
+
+
+        proDirec.setText(direcBrutoAr[0]);
+        proNum.setText(direcBrutoAr[1]);
+        proCP.setText(direcBrutoAr[2]);
         proTlf.setText(dt.getTelefono().toString());
         proMail.setText(dt.getMail().toString());
 
