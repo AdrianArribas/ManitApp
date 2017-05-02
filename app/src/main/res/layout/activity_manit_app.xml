@@ -4,11 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#6dc9c3"
+    android:backgroundTint="#6dc9c3"
     tools:context="gonzalberdricorp.manitapp.ManitApp">
 
     <LinearLayout
         android:layout_width="368dp"
         android:layout_height="495dp"
+        android:backgroundTint="#6dc9c3"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
@@ -16,34 +19,40 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#6dc9c3"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@android:drawable/btn_star_big_on" />
+                app:srcCompat="@mipmap/logo1" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#6dc9c3"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/button"
-                style="@style/Widget.AppCompat.Button"
+                style="@android:style/Widget.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:elevation="0dp"
                 android:onClick="profesional"
-                android:text="Registrarme como Profesional" />
+                android:text="Registrarme como Profesional"
+                android:textAlignment="center"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#6dc9c3"
             android:orientation="horizontal">
 
             <Button
@@ -54,6 +63,7 @@
                 android:layout_weight="1"
                 android:onClick="buscar"
                 android:text="Buscar profesionales"
+                android:textAlignment="center"
                 android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>

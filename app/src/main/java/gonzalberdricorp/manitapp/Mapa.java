@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -165,6 +166,7 @@ public class Mapa extends AppCompatActivity implements
             TextView tvmail = (TextView) Mapa.this.findViewById(R.id.tvMapMail);
             TextView tvtlf = (TextView) Mapa.this.findViewById(R.id.tvMapTlf);
             TextView tvcalle = (TextView) Mapa.this.findViewById(R.id.tvMapCalle);
+            RatingBar Estrellas=(RatingBar)Mapa.this.findViewById(R.id.ratingBar);
             Button SMS=(Button)Mapa.this.findViewById(R.id.button10);
             SMS.setVisibility(View.VISIBLE);
 
@@ -182,6 +184,8 @@ public class Mapa extends AppCompatActivity implements
             String direcBruto = (Arraydt.get(marca).getDireccion());
             String direcBrutoAr[] = direcBruto.split("[|]");
             tvcalle.setText("Dirección: "+direcBrutoAr[0] + " Nº:" + direcBrutoAr[1]);
+
+            Estrellas.setRating(Arraydt.get(marca).getEstrellas());
 
 
             // Check if a click count was set, then display the click count.

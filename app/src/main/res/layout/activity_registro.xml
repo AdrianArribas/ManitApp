@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#6dc9c3"
     tools:context="gonzalberdricorp.manitapp.Registro">
 
     <LinearLayout
@@ -35,11 +36,13 @@
 
             <Button
                 android:id="@+id/button3"
+                style="@style/Widget.AppCompat.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="comprobarDNI"
                 android:text="Comprobar"
+                android:textSize="12sp"
                 android:visibility="visible" />
         </LinearLayout>
 
@@ -185,12 +188,14 @@
 
             <Button
                 android:id="@+id/button6"
+                style="@style/Widget.AppCompat.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="ENVIAR"
                 android:text="Enviar"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -221,19 +226,23 @@
 
                 <Button
                     android:id="@+id/button5"
+                    style="@style/Widget.AppCompat.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="Actualizar"
-                    android:text="Actualizar" />
+                    android:text="Actualizar"
+                    android:textSize="18sp" />
 
                 <Button
                     android:id="@+id/button4"
+                    style="@style/Widget.AppCompat.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="noact"
-                    android:text="No Actualizar" />
+                    android:text="No Actualizar"
+                    android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>
 

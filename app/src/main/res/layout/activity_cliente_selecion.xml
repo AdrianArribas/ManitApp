@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#6dc9c3"
     tools:context="gonzalberdricorp.manitapp.ClienteSelecion">
 
     <LinearLayout
         android:layout_width="368dp"
         android:layout_height="495dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp">
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/googleg_standard_color_18" />
+                app:srcCompat="@mipmap/logo1" />
         </LinearLayout>
 
         <LinearLayout
@@ -33,11 +34,13 @@
 
             <Button
                 android:id="@+id/button7"
+                style="@android:style/Widget.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="puntua"
-                android:text="Puntua un servicio" />
+                android:text="Puntua un servicio"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -47,11 +50,13 @@
 
             <Button
                 android:id="@+id/button8"
+                style="@android:style/Widget.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="buscaprof"
-                android:text="Busca un profesional" />
+                android:text="Busca un profesional"
+                android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
