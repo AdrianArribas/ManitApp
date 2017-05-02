@@ -106,7 +106,7 @@ public class GestionComunicacion {
             job.put("Direccion",dt.getDireccion());
             job.put("Telefono",dt.getTelefono());
             job.put("Mail",dt.getMail());
-            job.put("Estrellas",0);
+            job.put("Estrellas",dt.getEstrellas());
             job.put("X",dt.getX());
             job.put("Y",dt.getY());
             job.put("Extra","desconocido");

@@ -7,7 +7,7 @@
     tools:context="gonzalberdricorp.manitapp.Mapa">
 
     <LinearLayout
-        android:layout_width="458dp"
+        android:layout_width="0dp"
         android:layout_height="470dp"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,14 +20,14 @@
             android:id="@+id/mapa"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="427dp"
+            android:layout_height="match_parent"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="444dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -139,19 +139,19 @@
 
             <RatingBar
                 android:id="@+id/ratingBar"
-                style="@android:style/Widget.Material.Light.RatingBar.Indicator"
+                style="@style/Widget.AppCompat.RatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:numStars="5" />
 
             <Button
                 android:id="@+id/button10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.51"
                 android:onClick="SMS"
-                android:text="Enviar SMS" />
+                android:text="Enviar SMS"
+                android:visibility="invisible" />
         </LinearLayout>
     </LinearLayout>
 

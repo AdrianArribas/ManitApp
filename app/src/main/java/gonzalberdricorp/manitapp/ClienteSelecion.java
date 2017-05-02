@@ -18,7 +18,7 @@ public class ClienteSelecion extends AppCompatActivity {
         setContentView(R.layout.activity_cliente_selecion);
     }
     public void puntua (View v){
-        this.startActivity(new Intent(this,Registro.class));
+        this.startActivity(new Intent(this,PuntuaProf.class));
     }
 
     public void buscaprof (View v){
