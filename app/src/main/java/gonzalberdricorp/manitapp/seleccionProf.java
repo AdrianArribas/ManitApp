@@ -56,8 +56,12 @@ public class seleccionProf extends AppCompatActivity {
         }
 
 
-    }//------------on create END-----------------
+    }//------------on create END--------------------------------------------------------------------
 
+
+
+
+    //---------------------------------------------LOCALIZACION-------------------------------------
     class CambioLocalizacion implements LocationListener {
 
         @Override
@@ -88,6 +92,7 @@ public class seleccionProf extends AppCompatActivity {
 
 
 
+    //---------------------------------------------BUSCAR PROFESIONAL-------------------------------
     public void Buscamiento (View v){
         JSONObject job = new JSONObject();
         TextView tv=(TextView)this.findViewById(android.R.id.text1);
@@ -121,4 +126,5 @@ public class seleccionProf extends AppCompatActivity {
         //cargamos actividad
         seleccionProf.this.startActivity(intent);
     }
+    //----------------------------------------------------------------------------------------------
 }

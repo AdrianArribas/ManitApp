@@ -4,6 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_alignParentBottom="false"
+    android:layout_alignParentEnd="false"
+    android:layout_alignParentLeft="false"
+    android:layout_alignParentTop="false"
+    android:layout_gravity="center"
     android:background="#6dc9c3"
     tools:context="gonzalberdricorp.manitapp.Registro">
 

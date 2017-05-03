@@ -19,7 +19,7 @@ import JavaBean.DatosPersona;
 
 public class GestionComunicacion {
 
-    String URLconexion="192.168.1.133";//-----------servidor PC clase 192.168.0.188
+    String URLconexion="192.168.0.188";//-----------servidor PC casa 192.168.1.133
     int URLPuertoRegistro =8000;
     int URLPuertoCliente=9000;
     boolean registro=false;

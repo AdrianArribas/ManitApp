@@ -42,6 +42,7 @@ public class Registro extends AppCompatActivity {
         //------------------------------------------------------------------------------
     }
 
+
     //-------------------------------------COMPROBAR DNI REPETIDO Y DISPARAR RESPUESTA--
     public void comprobarDNI (View v){
 
@@ -54,6 +55,8 @@ public class Registro extends AppCompatActivity {
 
     }
     //-----------------------------------------------------------------------------------
+
+
 
     //------------------------------------ACTUALIZAR CONTENIDO DEL FORMULARIO------------
     public void Actualizar (View v){
@@ -86,10 +89,13 @@ public class Registro extends AppCompatActivity {
         ADNI.setVisibility(View.INVISIBLE);
 
     }
-    //----------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------
 
+
+
+    //----------------------------------------ENVIAR FORMULARIO------------------------------
     public void ENVIAR (View v){
-        //Declaramos los campos de texto y spinners de los que vamos a extraer los datos----
+        //Declaramos los campos de texto y spinners de los que vamos a extraer los datos-
         EditText edt1 = (EditText) this.findViewById(R.id.proDni);
         EditText proNombre=(EditText)this.findViewById(R.id.proNombre);
         EditText proDirec=(EditText)this.findViewById(R.id.proDirec);
@@ -115,7 +121,7 @@ public class Registro extends AppCompatActivity {
         coordenadas(calle,numerocalle,Ciudad);
         dt.setX(lat);
         dt.setY(lon);
-        //---------------------------------Visivilidad de los botones--------------
+        //---------------------------------Visivilidad de los botones-----------------------
         LinearLayout LinearRegistro=(LinearLayout)this.findViewById(R.id.LinearRegistro);
         LinearRegistro.setVisibility(View.INVISIBLE);
         Button Botondni=(Button)Registro.this.findViewById(R.id.button3);
@@ -124,14 +130,19 @@ public class Registro extends AppCompatActivity {
         ComunicacionRegistro com=new ComunicacionRegistro();
         com.execute();
     }
+    //--------------------------------------------------------------------------------------
 
-    //-----------------------------------RETORNO A MAIN---------------------------------
+
+
+    //-----------------------------------RETORNO A MAIN-------------------------------------
     public void noact (View v){
         LinearLayout ADNI=(LinearLayout)this.findViewById((R.id.alertaDNI));
         ADNI.setVisibility(View.INVISIBLE);
         this.startActivity(new Intent(this,ManitApp.class));
     }
-    //----------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------
+
+
 
     //------------------------------------TAREAS ASINCRONAS DE COMUNICACIONES-------------
 
@@ -190,7 +201,7 @@ public class Registro extends AppCompatActivity {
             return dt;
         }
     }
-    //----------------------------------------------------------------------------------
+    //-------------------------------------COORDENADAS------------------------------------
 
     public void coordenadas(String calle, String numerocalle, String Ciudad) {
         Geocoder geo = new Geocoder(Registro.this, new Locale("ES"));
@@ -206,6 +217,6 @@ public class Registro extends AppCompatActivity {
 
         }
     }
-
+    //-------------------------------------------------------------------------------------
 
 }

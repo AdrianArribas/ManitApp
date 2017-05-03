@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -69,6 +70,7 @@ public class Mapa extends AppCompatActivity implements
     //----------------------------------------------------------------------------------------------
 
 
+
     //-------------------------------SE INICIA CON LA CARGA DEL MAPA COMPLETO-----------------------
     @Override
     public void onMapReady(GoogleMap map) {
@@ -93,6 +95,9 @@ public class Mapa extends AppCompatActivity implements
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    //----------------------------------------------------------------------------------------------
+
+
 
         //------------------------GENERAMOS LOS MARCADORES SOLICITADOS------------------------------
         googleMap.setOnMarkerClickListener(this);
@@ -108,7 +113,7 @@ public class Mapa extends AppCompatActivity implements
                         .title("Nombre: " + dat.getNombre().toString()))
                         .setSnippet("Tlf: " + (Arraydt.get(i).getTelefono()) + "\n" + "Nº-" + (i + 1) + "-\n" + "Email: " + Arraydt.get(i).getMail());
             }
-            // Set a listener for marker click.
+
         } else {
             googleMap.addMarker(new MarkerOptions()
                     .position(pos)
@@ -149,6 +154,7 @@ public class Mapa extends AppCompatActivity implements
     //----------------------------------------------------------------------------------------------
 
 
+
     //-------------------------------EVENTO CLICK EN EL MARCADOR------------------------------------
     /** Called when the user clicks a marker. */
     @Override
@@ -169,6 +175,7 @@ public class Mapa extends AppCompatActivity implements
             RatingBar Estrellas=(RatingBar)Mapa.this.findViewById(R.id.ratingBar);
             Button SMS=(Button)Mapa.this.findViewById(R.id.button10);
             SMS.setVisibility(View.VISIBLE);
+            ImageView iconoMapa=(ImageView)Mapa.this.findViewById(R.id.iconoMapa);
 
             //---DESCOMPONEMOS EL ARRAYLIST Y RELLENAMOS LOS CAMPOS-------------
             String snip=(marker.getSnippet().toString());
@@ -187,8 +194,42 @@ public class Mapa extends AppCompatActivity implements
 
             Estrellas.setRating(Arraydt.get(marca).getEstrellas());
 
+            //-------------------controlador de imagenes-------------------------------------
 
-            // Check if a click count was set, then display the click count.
+            if (Arraydt.get(marca).getCategoria().toLowerCase().equals("electricista")){
+                iconoMapa.setImageResource(R.mipmap.prof_electricista);
+            }
+            if (Arraydt.get(marca).getCategoria().toLowerCase().equals("fontanero")){
+                iconoMapa.setImageResource(R.mipmap.prof_fontanero);
+            }
+            if (Arraydt.get(marca).getCategoria().toLowerCase().equals("carpintero")){
+                iconoMapa.setImageResource(R.mipmap.prof_carpintero);
+            }
+            if (Arraydt.get(marca).getCategoria().toLowerCase().equals("cerrajero")){
+                iconoMapa.setImageResource(R.mipmap.prof_cerrajero);
+            }
+            if (Arraydt.get(marca).getCategoria().toLowerCase().equals("informatico")){
+                iconoMapa.setImageResource(R.mipmap.prof_informatico);
+            }
+            if (Arraydt.get(marca).getCategoria().toLowerCase().equals("limpiezadomestica")){
+                iconoMapa.setImageResource(R.mipmap.prof_limpieza);
+            }
+            if (Arraydt.get(marca).getCategoria().toLowerCase().equals("mudanzas")){
+                iconoMapa.setImageResource(R.mipmap.prof_mudanzas);
+            }
+            if (Arraydt.get(marca).getCategoria().toLowerCase().equals("pintor")){
+                iconoMapa.setImageResource(R.mipmap.prof_pintor);
+            }
+            if (Arraydt.get(marca).getCategoria().toLowerCase().equals("reformas")){
+                iconoMapa.setImageResource(R.mipmap.prof_reformas);
+            }
+            if (Arraydt.get(marca).getCategoria().toLowerCase().equals("tecnico")){
+                iconoMapa.setImageResource(R.mipmap.prof_tecnico);
+            }
+            //----------------------------------------------------------------------------------
+
+
+
             if (clickCount != null) {
                 clickCount = clickCount + 1;
                 marker.setTag(clickCount);
@@ -198,14 +239,11 @@ public class Mapa extends AppCompatActivity implements
                         Toast.LENGTH_SHORT).show();
             }
 
-
         }
-        // Return false to indicate that we have not consumed the event and that we wish
-        // for the default behavior to occur (which is for the camera to move such that the
-        // marker is centered and for the marker's info window to open, if it has one).
         return false;
     }
     //----------------------------------------------------------------------------------------------
+
 
 
     //------------------------------------ENVIAR SMS-----------------------------------------------
@@ -222,6 +260,8 @@ public class Mapa extends AppCompatActivity implements
         startActivity(sms_intent);
 
     }
+    //----------------------------------------------------------------------------------------------
+
 
 
     //------------------------------------TAREAS ASINCRONAS DE COMUNICACIONES-----------------------

@@ -112,6 +112,7 @@ public class PuntuaProf extends AppCompatActivity {
     //----------------------------------------------------------------------------------------------
 
 
+
     //---------------------------------------------------BOTON PUNTUAR------------------------------
     public void PUNTUA (View v){
         Spinner spin2=(Spinner)PuntuaProf.this.findViewById(R.id.spNombre);
@@ -120,7 +121,9 @@ public class PuntuaProf extends AppCompatActivity {
         com.execute();
 
     }
-    //---------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------
+
+
 
     //------------------------------------TAREAS ASINCRONAS DE COMUNICACIONES-----------------------
 
@@ -162,8 +165,7 @@ public class PuntuaProf extends AppCompatActivity {
             return Arraydt;
         }
     }
-    //----------------------------------------------------------------------------------
-
+    //----------------------------------------------------------------------------------------------
     class ComunicacionPUNTUAR extends AsyncTask<Void,Void,ArrayList<DatosPersona>> {
         @Override
         protected void onPostExecute(ArrayList<DatosPersona> Arraydt) {
@@ -188,5 +190,5 @@ public class PuntuaProf extends AppCompatActivity {
             return Arraydt;
         }
     }
-
+    //----------------------------------------------------------------------------------------------
 }

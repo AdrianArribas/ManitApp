@@ -25,13 +25,4 @@ public class ClienteSelecion extends AppCompatActivity {
         this.startActivity(new Intent(this,seleccionProf.class));
     }
 
-
-
-/*Geocoder geo=new Geocoder(this,new Locale("ES"));
-    try{
-        List<Address> lista= geo.getFromLocationName("calle,numero,ciudad,Nresultados");
-        Toast.makeText(this,lista.get(0).getLatitude()+","+lista.get(0).getLongitude());
-        //getfromlocation (lat,long,int max results);
-    }*/
-
 }
